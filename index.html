@@ -6,10 +6,61 @@
     <title>John's Exercise Tracker</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/index.css">
 </head>
 <body>
-   
+   <div class="container-fluid">
+       <div class="jumbotron bg-info header" style="color: white;">
+            <h1 class="text-center">
+                <strong><i class="fas fa-weight"></i> Fitness Tracker</i></strong>
+            </h1>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header bg-secondary text-center" style="color: white;">
+                        <strong>EXERCISE STATS</strong>
+                        <!-- show the total time, miles ran, and calories burned for cardio -->
+
+                        <!-- show the total sets reps and weight of last lift for each exercise -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header bg-secondary text-center" style="color: white;">
+                        <strong>EXERCISE DETAILS</strong>
+                    </div>
+                    <div class="card-body bg-light">
+                        <form role="form">
+                            <!-- input for exercise type(dropdown for cardio or muscular) -->
+                            <div class="form-group">
+                                <label for="type"><strong>Exercise Type</strong></label>
+                                <select class="form-control" id="type">
+                                    <option></option>
+                                    <option>Cardio</option>
+                                    <option>Muscular</option>
+                                </select>
+                            </div>
+                            <!-- input for exercise itself -->
+                            <div class="form-group">
+                                <label for="exercise"><strong>Exercise</strong></label>
+
+                            </div>
+                            <!-- input for machine if cardio and weight if muscular -->
+                            <!-- input for time if cardio and reps if muscular -->
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+   </div>
     
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
