@@ -69,8 +69,8 @@ $("#add-button").on("click", function(){
                 stats[i].dis = stats[i].dis + parseFloat(results.result1);
                 stats[i].cal = stats[i].cal + parseInt(results.result2);
             } else {
-                stats[i].weight = stats[i].weight + parseInt(results.result1);
-                stats[i].reps = stats[i].reps + parseInt(results.result1);
+                stats[i].weight = parseInt(results.result1);
+                stats[i].reps = parseInt(results.result2);
             }
 
             if (stats[i].pr < results.result1) {
