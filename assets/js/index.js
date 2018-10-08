@@ -50,6 +50,9 @@ var stats = [
 var cardio_exercises = ["Treadmill", "Stairmaster", "Bike", "Row Machine"];
 var muscular_exercises = ["Benchpress", "Latpull", "Incline Bench", "Curls", "Row"];
 
+
+var cardio_results = ["Mi/Floors", "Calories"];
+var muscular_results = ["Weight", "Reps"];
 $("#add-button").on("click", function(){
     event.preventDefault();
     alert(info.last_workout);
@@ -97,10 +100,20 @@ function populateStats() {
     }
 }
 
-// $("#type").on("change", function() {
-//     if ($("#type").val == "cardio") {
-//         alert ("I'm cardio");
-//     }
-// });
+$("#type").change(function() {
+    const exerciseOptions = $("#exercise");
+
+    exerciseOptions.empty();
+
+    if ($("#type").val() == "Cardio") {
+       for (let i =0; i < cardio_exercises.length; i++) {
+           exerciseOptions.append($("<option>").text(cardio_exercises[i]));
+       }
+    } else {
+        for (let i =0; i < muscular_exercises.length; i++) {
+            exerciseOptions.append($("<option>").text(muscular_exercises[i]));
+        }
+    };
+});
 
 populateStats();
