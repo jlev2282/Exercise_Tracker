@@ -11,6 +11,7 @@ body {
 
 .stats, .stage {
     min-height: 20vh;
+    margin-bottom: 2vh; 
 }
 
 #title {
