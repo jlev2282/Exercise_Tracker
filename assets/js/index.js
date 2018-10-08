@@ -8,7 +8,7 @@ var info = {
 
 }
 
-var exercises = [
+var stats = [
     {
         name: "Stairmaster",
         type: "cardio",
@@ -47,6 +47,9 @@ var exercises = [
 
 ];
 
+var cardio_exercises = ["Treadmill", "Stairmaster", "Bike", "Row Machine"];
+var muscular_exercises = ["Benchpress", "Latpull", "Incline Bench", "Curls", "Row"];
+
 $("#add-button").on("click", function(){
     event.preventDefault();
     alert(info.last_workout);
@@ -63,27 +66,27 @@ function populateStats() {
     let cardioBody = $("#cardio");
     let muscularBody = $("#muscular");
 
-    cardioBody.empty;
-    muscularBody.empty;
+    cardioBody.empty();
+    muscularBody.empty();
 
-    for ( var i=0; i < exercises.length; i++) {
+    for ( var i=0; i < stats.length; i++) {
         //create a row to hold current exercise stats
         let tRow = $("<tr>");
 
-        let name = $("<td>").text(exercises[i].name);
+        let name = $("<td>").text(stats[i].name);
         //grab data and put into appropriate category
-        switch (exercises[i].type) {
+        switch (stats[i].type) {
             case "cardio":
-                var pr = $("<td>").text(exercises[i].pr);
-                var did = $("<td>").text(exercises[i].did);
-                var cal = $("<td>").text(exercises[i].cal);
+                var pr = $("<td>").text(stats[i].pr);
+                var did = $("<td>").text(stats[i].did);
+                var cal = $("<td>").text(stats[i].cal);
                 tRow.append(name, pr, did, cal);
                 cardioBody.append(tRow);
             break;
             case "muscular":
-                var pr = $("<td>").text(exercises[i].pr);
-                var weight = $("<td>").text(exercises[i].weight);
-                var reps = $("<td>").text(exercises[i].reps);
+                var pr = $("<td>").text(stats[i].pr);
+                var weight = $("<td>").text(stats[i].weight);
+                var reps = $("<td>").text(stats[i].reps);
                 tRow.append(name, pr, weight, reps);
                 muscularBody.append(tRow);
             break;
@@ -93,5 +96,11 @@ function populateStats() {
         }
     }
 }
+
+// $("#type").on("change", function() {
+//     if ($("#type").val == "cardio") {
+//         alert ("I'm cardio");
+//     }
+// });
 
 populateStats();
