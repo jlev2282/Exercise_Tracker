@@ -24,6 +24,20 @@ var stats = [
         cal: 700
     },
     {
+        name: "Bike",
+        type: "cardio",
+        dis: 20,
+        pr: 20,
+        cal: 350
+    },
+    {
+        name: "Row Machine",
+        type: "cardio",
+        dis: 30,
+        pr: 35,
+        cal: 600
+    },
+    {
         name: "Benchpress",
         type: "muscular",
         weight: 175, 
@@ -42,6 +56,20 @@ var stats = [
         type: "muscular",
         weight: 140,
         pr: 165,
+        reps: 7
+    },
+    {
+        name: "Curl",
+        type: "muscular",
+        weight: 35,
+        pr: 45,
+        reps: 7
+    },
+    {
+        name: "Row",
+        type: "muscular",
+        weight: 55,
+        pr: 55,
         reps: 7
     }
 
