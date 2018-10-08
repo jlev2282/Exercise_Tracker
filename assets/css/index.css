@@ -5,6 +5,11 @@ body {
     background-size:100% 100vh;
 }
 
+#exercise-body {
+    overflow: scroll;
+    max-height: 30vh;
+}
+
 .header {
     margin-top: 1vh;
 }
