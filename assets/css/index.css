@@ -9,6 +9,10 @@ body {
     margin-top: 1vh;
 }
 
+.jumbotron {
+    max-height: 12vh;
+}
+
 .stats, .stage {
     min-height: 20vh;
     margin-bottom: 1vh; 
