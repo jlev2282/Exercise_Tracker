@@ -15,12 +15,13 @@ body {
 }
 
 .jumbotron {
-    max-height: 12vh;
+    max-height: 18vh;
 }
 
 .stats, .stage {
     min-height: 20vh;
     margin-bottom: 1vh; 
+    max-width: 100vw;
 }
 
 
@@ -30,4 +31,10 @@ body {
 }
 #title {
     text-decoration: underline;
+}
+
+table {
+    width: 100%;
+    margin: 0 auto;
+
 }
