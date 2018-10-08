@@ -45,11 +45,12 @@ var exercises = [
         reps: 7
     }
 
-]
+];
 
 $("#add-button").on("click", function(){
     event.preventDefault();
     alert(info.last_workout);
+    populateStats();
 })
 
 function getLastWorkout(date){
@@ -59,11 +60,35 @@ function getLastWorkout(date){
 //loops over exercises array and populates both the cardio and muscular tables
 function populateStats() {
     //empty both tables so you don't get duplicates
-    $("#cardio").empty;
-    $("#muscular").empty;
+    let cardioBody = $("#cardio");
+    let muscularBody = $("#muscular");
+
+    cardioBody.empty;
+    muscularBody.empty;
+
     for ( var i=0; i < exercises.length; i++) {
+        //create a row to hold current exercise stats
+        let tRow = $("<tr>");
+
+        let name = $("<td>").text(exercises[i].name);
+        //grab data and put into appropriate category
         switch (exercises[i].type) {
             case "cardio":
+                var pr = $("<td>").text(exercises[i].pr);
+                var did = $("<td>").text(exercises[i].did);
+                var cal = $("<td>").text(exercises[i].cal);
+                tRow.append(name, pr, did, cal);
+                cardioBody.append(tRow);
+            break;
+            case "muscular":
+                var pr = $("<td>").text(exercises[i].pr);
+                var weight = $("<td>").text(exercises[i].weight);
+                var reps = $("<td>").text(exercises[i].reps);
+                tRow.append(name, pr, weight, reps);
+                muscularBody.append(tRow);
+            break;
+            default:
+            break;
 
         }
     }
