@@ -12,6 +12,7 @@ var stats = [
     {
         name: "Stairmaster",
         type: "cardio",
+        cum: 0,
         dis: 100,
         pr: 210,
         cal: 350
@@ -19,6 +20,7 @@ var stats = [
     {
         name: "Treadmill",
         type: "cardio",
+        cum: 0,
         dis: 4.5,
         pr: 5.8,
         cal: 700
@@ -26,6 +28,7 @@ var stats = [
     {
         name: "Bike",
         type: "cardio",
+        cum: 0,
         dis: 20,
         pr: 20,
         cal: 350
@@ -33,6 +36,7 @@ var stats = [
     {
         name: "Row Machine",
         type: "cardio",
+        cum: 0,
         dis: 30,
         pr: 35,
         cal: 600
@@ -94,8 +98,9 @@ $("#add-button").on("click", function(){
     for (let i = 0; i < stats.length; i++) {
         if (stats[i].name == results.exercise) {
             if (results.type == "Cardio") {
-                stats[i].dis = stats[i].dis + parseFloat(results.result1);
-                stats[i].cal = stats[i].cal + parseInt(results.result2);
+                stats[i].dis = parseFloat(results.result1);
+                stats[i].cal = parseInt(results.result2);
+                stats[i].cum = stats[i].cum + parseFloat(results.result1);
             } else {
                 stats[i].weight = parseInt(results.result1);
                 stats[i].reps = parseInt(results.result2);
@@ -135,8 +140,9 @@ function populateStats() {
             case "cardio":
                 var pr = $("<td>").text(stats[i].pr);
                 var did = $("<td>").text(stats[i].dis);
+                var cum = $("<td>").text(stats[i].cum);
                 var cal = $("<td>").text(stats[i].cal);
-                tRow.append(name, pr, did, cal);
+                tRow.append(name, pr, did, cal, cum);
                 cardioBody.append(tRow);
             break;
             case "muscular":
