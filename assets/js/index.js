@@ -109,10 +109,15 @@ $("#type").change(function() {
        for (let i =0; i < cardio_exercises.length; i++) {
            exerciseOptions.append($("<option>").text(cardio_exercises[i]));
        }
+       $("#result1label").text(cardio_results[0]);
+       $("#result2label").text(cardio_results[1])
+
     } else {
         for (let i =0; i < muscular_exercises.length; i++) {
             exerciseOptions.append($("<option>").text(muscular_exercises[i]));
         }
+        $("#result1label").text(muscular_results[0])
+        $("#result2label").text(muscular_results[1])
     };
 });
 
