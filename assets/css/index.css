@@ -1,3 +1,18 @@
+body {
+    position: relative;
+    background-image: url("../images/gym2.jpeg");
+    background-repeat:no-repeat;
+    background-size:100% 100vh;
+}
+
 .header {
     margin-top: 2vh;
+}
+
+.stats, .stage {
+    min-height: 20vh;
+}
+
+#title {
+    text-decoration: underline;
 }
