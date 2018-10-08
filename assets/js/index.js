@@ -12,14 +12,14 @@ var stats = [
     {
         name: "Stairmaster",
         type: "cardio",
-        did: "100",
+        dis: 100,
         pr: 210,
         cal: 350
     },
     {
         name: "Treadmill",
         type: "cardio",
-        did: 4.5,
+        dis: 4.5,
         pr: 5.8,
         cal: 700
     },
@@ -53,9 +53,32 @@ var muscular_exercises = ["Benchpress", "Latpull", "Incline Bench", "Curls", "Ro
 
 var cardio_results = ["Mi/Floors", "Calories"];
 var muscular_results = ["Weight", "Reps"];
+
+//submits workout results
 $("#add-button").on("click", function(){
     event.preventDefault();
-    alert(info.last_workout);
+    let results = {
+        type: $("#type").val(),
+        exercise: $("#exercise").val(),
+        result1: $("#results1").val().trim(),
+        result2: $("#results2").val().trim()
+    }
+    for (let i = 0; i < stats.length; i++) {
+        if (stats[i].name == results.exercise) {
+            if (results.type == "Cardio") {
+                stats[i].dis = stats[i].dis + parseFloat(results.result1);
+                stats[i].cal = stats[i].cal + parseInt(results.result2);
+            } else {
+                stats[i].weight = stats[i].weight + parseInt(results.result1);
+                stats[i].reps = stats[i].reps + parseInt(results.result1);
+            }
+
+            if (stats[i].pr < results.result1) {
+                stats[i].pr = results.result1
+            }
+        }
+        
+    }
     populateStats();
 })
 
@@ -71,6 +94,8 @@ function populateStats() {
 
     cardioBody.empty();
     muscularBody.empty();
+    $("#results1").val("");
+    $("#results2").val("");
 
     for ( var i=0; i < stats.length; i++) {
         //create a row to hold current exercise stats
@@ -81,7 +106,7 @@ function populateStats() {
         switch (stats[i].type) {
             case "cardio":
                 var pr = $("<td>").text(stats[i].pr);
-                var did = $("<td>").text(stats[i].did);
+                var did = $("<td>").text(stats[i].dis);
                 var cal = $("<td>").text(stats[i].cal);
                 tRow.append(name, pr, did, cal);
                 cardioBody.append(tRow);
@@ -97,6 +122,8 @@ function populateStats() {
             break;
 
         }
+
+       
     }
 }
 
