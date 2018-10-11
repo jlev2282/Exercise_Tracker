@@ -1,0 +1,33 @@
+{
+  "name": "exercise_tracker",
+  "version": "1.0.0",
+  "description": "Helps to keep track of my exercise achievements",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlev2282/Exercise_Tracker.git"
+  },
+  "keywords": [
+    "exercise",
+    "tracker",
+    "fit",
+    "node",
+    "persistence"
+  ],
+  "author": "John Leverett",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jlev2282/Exercise_Tracker/issues"
+  },
+  "homepage": "https://github.com/jlev2282/Exercise_Tracker#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "mysql": "^2.16.0",
+    "mysql2": "^1.6.1"
+  }
+}
