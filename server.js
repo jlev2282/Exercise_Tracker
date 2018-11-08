@@ -2,6 +2,12 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var mysql = require("mysql");
 
+//Create an express server
+const app = express();
+
+//assign a port conditionally on environment
+var PORT = process.env.PORT || 2207;
+
 // Configuring our connection to our database; Also allow for connection to jawsdb if available
 if (process.env.JAWSDB_URL) {
     const connection = mysql.createConnection(process.env.JAWSDB_URL);
@@ -22,9 +28,7 @@ connection.connect(function(err) {
   makeTable();
 });
 
-var PORT = process.env.PORT || 2207;
 
-var app = express();
 
 // choose a directory from which to serve static content
 app.use(express.static("public"));
@@ -33,16 +37,9 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
-// set Handlebars
-var exphbs = require("express-handlebars");
-
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
-
-// Import the routes to use and give server access to them
-var routes = require("./controllers/exercisesController.js");
-
-// app.use(routes);
+//bring in the routes for the html and api
+require("./app/routing/apiRoutes")(app);
+require("./app/routing/htmlRoutes")(app);
 
 //start server 
 app.listen(PORT, function() {
