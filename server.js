@@ -3,21 +3,21 @@ var bodyParser = require("body-parser");
 var mysql = require("mysql");
 
 //Create an express server
-const app = express();
+var app = express();
 
 //assign a port conditionally on environment
 var PORT = process.env.PORT || 2207;
 
 // Configuring our connection to our database; Also allow for connection to jawsdb if available
 if (process.env.JAWSDB_URL) {
-    const connection = mysql.createConnection(process.env.JAWSDB_URL);
+    var connection = mysql.createConnection(process.env.JAWSDB_URL);
 } else {
-    const connection = mysql.createConnection({
+    var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "",
-    database: "bamazon"
+    password: "root",
+    database: "exercise_tracker"
     });
 }
 
@@ -25,9 +25,7 @@ if (process.env.JAWSDB_URL) {
 connection.connect(function(err) {
   if (err) throw err;
   console.log("connection successful!");
-  makeTable();
 });
-
 
 
 // choose a directory from which to serve static content
@@ -38,8 +36,8 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
 //bring in the routes for the html and api
-require("./app/routing/apiRoutes")(app);
-require("./app/routing/htmlRoutes")(app);
+// require("./routing/apiRoutes")(app);
+require("./routing/htmlRoutes")(app);
 
 //start server 
 app.listen(PORT, function() {
