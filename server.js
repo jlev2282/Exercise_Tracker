@@ -4,9 +4,9 @@ var mysql = require("mysql");
 
 // Configuring our connection to our database; Also allow for connection to jawsdb if available
 if (process.env.JAWSDB_URL) {
-    connection = mysql.createConnection(process.env.JAWSDB_URL);
+    const connection = mysql.createConnection(process.env.JAWSDB_URL);
 } else {
-    var connection = mysql.createConnection({
+    const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
