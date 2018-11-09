@@ -95,23 +95,28 @@ $("#add-button").on("click", function(){
         result1: $("#results1").val().trim(),
         result2: $("#results2").val().trim()
     }
-    for (let i = 0; i < stats.length; i++) {
-        if (stats[i].name == results.exercise) {
-            if (results.type == "Cardio") {
-                stats[i].dis = parseFloat(results.result1);
-                stats[i].cal = parseInt(results.result2);
-                stats[i].cum = stats[i].cum + parseFloat(results.result1);
-            } else {
-                stats[i].weight = parseInt(results.result1);
-                stats[i].reps = parseInt(results.result2);
-            }
+    // for (let i = 0; i < stats.length; i++) {
+    //     if (stats[i].name == results.exercise) {
+    //         if (results.type == "Cardio") {
+    //             stats[i].dis = parseFloat(results.result1);
+    //             stats[i].cal = parseInt(results.result2);
+    //             stats[i].cum = stats[i].cum + parseFloat(results.result1);
+    //         } else {
+    //             stats[i].weight = parseInt(results.result1);
+    //             stats[i].reps = parseInt(results.result2);
+    //         }
 
-            if (stats[i].pr < results.result1) {
-                stats[i].pr = results.result1
-            }
-        }
+    //         if (stats[i].pr < results.result1) {
+    //             stats[i].pr = results.result1
+    //         }
+    //     }
         
-    }
+    // }
+
+    //send results to api route
+    $.post("/api/submit_stats", results, function(stats) {
+        console.log(stats);
+    })
     populateStats();
 })
 
