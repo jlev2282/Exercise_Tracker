@@ -46,6 +46,16 @@ app.listen(PORT, function() {
 });
 
 //routes
+
+//route for getting stats from database
+app.get("/api/get_stats", function(req, res) {
+    connection.query("SELECT * FROM stats", function(err, data) {
+        console.log(data);
+        res.json(data);
+    });
+});
+
+//route for submitting new stats to database
 app.post("/api/submit_stats", function(req, res) {
     //get the stats to submit from the request body
     var stats = {
@@ -62,17 +72,17 @@ app.post("/api/submit_stats", function(req, res) {
                 //submit the stats to mysql
                 switch(stats.type){
                     case "Cardio":
-                        stats.cum = req.body.result1;
-                        stats.dis = req.body.result1;
-                        stats.pr = req.body.result1;
-                        stats.cal = req.body.result2;
+                        stats.cum = parseFloat(req.body.result1);
+                        stats.dis = parseFloat(req.body.result1);
+                        stats.pr = parseFloat(req.body.result1);
+                        stats.cal = parseInt(req.body.result2);
                         console.log("You've submitted Cardio");
                         console.log(stats);
                         break;
                     case "Muscular":
-                        stats.weight = req.body.result1;
-                        stats.reps = req.body.result2;
-                        stats.pr = req.body.result1;
+                        stats.weight = parseInt(req.body.result1);
+                        stats.reps = parseInt(req.body.result2);
+                        stats.pr = parseInt(req.body.result1);
                         console.log("You've submitted Muscular");
                         break;
                     default:
@@ -83,27 +93,26 @@ app.post("/api/submit_stats", function(req, res) {
                         if (err) {
                             console.log(err)
                         } else {
-                           
+                           console.log(data);
                         }
                     }
                 );
-                res.json(data);
             } else {
                 console.log(data);
                 //add found data in with new data
                 switch(stats.type){
                     case "Cardio":
-                        stats.cum = req.body.result1 + data[0].cum;
-                        stats.dis = req.body.result1;
-                        stats.pr = Math.max(req.body.result1, data[0].pr);
-                        stats.cal = req.body.result2;
+                        stats.cum = parseFloat(req.body.result1) + data[0].cum;
+                        stats.dis = parseFloat(req.body.result1);
+                        stats.pr = Math.max(parseFloat(req.body.result1), data[0].pr);
+                        stats.cal = parseInt(req.body.result2);
                         console.log("You've submitted Cardio");
                         console.log(stats);
                         break;
                     case "Muscular":
-                        stats.weight = req.body.result1;
-                        stats.reps = req.body.result2;
-                        stats.pr = Math.max(req.body.result1, data[0].pr);
+                        stats.weight = parseInt(req.body.result1);
+                        stats.reps = parseInt(req.body.result2);
+                        stats.pr = Math.max(parseInt(req.body.result1), data[0].pr);
                         console.log("You've submitted Muscular");
                         break;
                     default:

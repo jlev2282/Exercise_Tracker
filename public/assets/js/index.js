@@ -1,84 +1,5 @@
 "use strict";
 
-var info = {
-    name: "John",
-    weight: 245,
-    date: new Date(),
-    last_workout: getLastWorkout(this.date),
-
-}
-
-var stats = [
-    {
-        name: "Stairmaster",
-        type: "cardio",
-        cum: 0,
-        dis: 100,
-        pr: 210,
-        cal: 350
-    },
-    {
-        name: "Treadmill",
-        type: "cardio",
-        cum: 0,
-        dis: 4.5,
-        pr: 5.8,
-        cal: 700
-    },
-    {
-        name: "Bike",
-        type: "cardio",
-        cum: 0,
-        dis: 20,
-        pr: 20,
-        cal: 350
-    },
-    {
-        name: "Row Machine",
-        type: "cardio",
-        cum: 0,
-        dis: 30,
-        pr: 35,
-        cal: 600
-    },
-    {
-        name: "Benchpress",
-        type: "muscular",
-        weight: 175, 
-        pr: 225,
-        reps: 5
-    },
-    {
-        name: "Latpull",
-        type: "muscular",
-        weight: 100,
-        pr: 115,
-        reps: 10
-    },
-    {
-        name: "Incline Press",
-        type: "muscular",
-        weight: 140,
-        pr: 165,
-        reps: 7
-    },
-    {
-        name: "Curl",
-        type: "muscular",
-        weight: 35,
-        pr: 45,
-        reps: 7
-    },
-    {
-        name: "Row",
-        type: "muscular",
-        weight: 55,
-        pr: 55,
-        reps: 7
-    }
-
-];
-
 var cardio_exercises = ["Treadmill", "Stairmaster", "Bike", "Row Machine"];
 var muscular_exercises = ["Benchpress", "Latpull", "Incline Bench", "Curls", "Row"];
 
@@ -140,35 +61,44 @@ function populateStats() {
     $("#results1").val("");
     $("#results2").val("");
 
-    for ( var i=0; i < stats.length; i++) {
-        //create a row to hold current exercise stats
-        let tRow = $("<tr>");
+    $.ajax({
+        method: "GET",
+        url: "./api/get_stats",
+      }).then(function(data) {
 
-        let name = $("<td>").text(stats[i].name);
-        //grab data and put into appropriate category
-        switch (stats[i].type) {
-            case "cardio":
-                var pr = $("<td>").text(stats[i].pr);
-                var did = $("<td>").text(stats[i].dis);
-                var cum = $("<td>").text(stats[i].cum);
-                var cal = $("<td>").text(stats[i].cal);
-                tRow.append(name, pr, did, cal, cum);
-                cardioBody.append(tRow);
-            break;
-            case "muscular":
-                var pr = $("<td>").text(stats[i].pr);
-                var weight = $("<td>").text(stats[i].weight);
-                var reps = $("<td>").text(stats[i].reps);
-                tRow.append(name, pr, weight, reps);
-                muscularBody.append(tRow);
-            break;
-            default:
-            break;
-
+        for ( var i=0; i < data.length; i++) {
+            //create a row to hold current exercise data
+            let tRow = $("<tr>");
+    
+            let name = $("<td>").text(data[i].name);
+            //grab data and put into appropriate category
+            switch (data[i].type) {
+                case "Cardio":
+                    var pr = $("<td>").text(data[i].pr);
+                    var did = $("<td>").text(data[i].dis);
+                    var cum = $("<td>").text(data[i].cum);
+                    var cal = $("<td>").text(data[i].cal);
+                    tRow.append(name, pr, did, cal, cum);
+                    console.log(tRow);
+                    cardioBody.append(tRow);
+                break;
+                case "Muscular":
+                    var pr = $("<td>").text(data[i].pr);
+                    var weight = $("<td>").text(data[i].weight);
+                    var reps = $("<td>").text(data[i].reps);
+                    tRow.append(name, pr, weight, reps);
+                    muscularBody.append(tRow);
+                break;
+                default:
+                break;
+    
+            }
+    
+           
         }
+      });
 
-       
-    }
+
 }
 
 $("#type").change(function() {
