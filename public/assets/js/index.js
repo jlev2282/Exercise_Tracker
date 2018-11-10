@@ -114,10 +114,15 @@ $("#add-button").on("click", function(){
     // }
 
     //send results to api route
-    $.post("/api/submit_stats", results, function(stats) {
+    $.ajax({
+        method: "POST",
+        url: "./api/submit_stats",
+        data: results
+      }).then(function(stats) {
         console.log(stats);
-    })
-    populateStats();
+        populateStats();
+      });
+
 })
 
 function getLastWorkout(date){

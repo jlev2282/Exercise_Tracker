@@ -21,7 +21,7 @@ if (process.env.JAWSDB_URL) {
     });
 }
 
-// Connecting to our database, running makeTable which will start the app
+// Connecting to our database
 connection.connect(function(err) {
   if (err) throw err;
   console.log("connection successful!");
@@ -44,3 +44,79 @@ app.listen(PORT, function() {
     //make log of server start
     console.log("Server up and running on: " + PORT);
 });
+
+//routes
+app.post("/api/submit_stats", function(req, res) {
+    //get the stats to submit from the request body
+    var stats = {
+        name : req.body.exercise,
+        type: req.body.type,
+        lastDone: new Date(),
+    } 
+
+    //check to make sure exercise has stats already in system, if not enter them
+    connection.query(
+        "SELECT * FROM stats WHERE name = ?", [stats.name], function(err, data) {
+            if (data == 0) {
+                console.log("I've found nothing");
+                //submit the stats to mysql
+                switch(stats.type){
+                    case "Cardio":
+                        stats.cum = req.body.result1;
+                        stats.dis = req.body.result1;
+                        stats.pr = req.body.result1;
+                        stats.cal = req.body.result2;
+                        console.log("You've submitted Cardio");
+                        console.log(stats);
+                        break;
+                    case "Muscular":
+                        stats.weight = req.body.result1;
+                        stats.reps = req.body.result2;
+                        stats.pr = req.body.result1;
+                        console.log("You've submitted Muscular");
+                        break;
+                    default:
+                        break;
+                }
+                connection.query(
+                    "INSERT INTO stats SET ?", stats, function(err, data) {
+                        if (err) {
+                            console.log(err)
+                        } else {
+                            res.json(data);
+                            return;
+                        }
+                    }
+                );
+            } else {
+                console.log(data);
+                //add found data in with new data
+                switch(stats.type){
+                    case "Cardio":
+                        stats.cum = req.body.result1 + data[0].cum;
+                        stats.dis = req.body.result1;
+                        stats.pr = req.body.result1;
+                        stats.cal = req.body.result2;
+                        console.log("You've submitted Cardio");
+                        console.log(stats);
+                        break;
+                    case "Muscular":
+                        stats.weight = req.body.result1;
+                        stats.reps = req.body.result2;
+                        stats.pr = req.body.result1;
+                        console.log("You've submitted Muscular");
+                        break;
+                    default:
+                        break;
+                }
+                //udate the stats in mysql
+                connection.query(
+                    "UPDATE stats SET"
+                )
+            }
+        }
+    )
+
+    //send the submitted data back to front end
+    res.json(stats)
+})
