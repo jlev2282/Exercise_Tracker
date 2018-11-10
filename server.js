@@ -83,11 +83,11 @@ app.post("/api/submit_stats", function(req, res) {
                         if (err) {
                             console.log(err)
                         } else {
-                            res.json(data);
-                            return;
+                           
                         }
                     }
                 );
+                res.json(data);
             } else {
                 console.log(data);
                 //add found data in with new data
@@ -95,7 +95,7 @@ app.post("/api/submit_stats", function(req, res) {
                     case "Cardio":
                         stats.cum = req.body.result1 + data[0].cum;
                         stats.dis = req.body.result1;
-                        stats.pr = req.body.result1;
+                        stats.pr = Math.max(req.body.result1, data[0].pr);
                         stats.cal = req.body.result2;
                         console.log("You've submitted Cardio");
                         console.log(stats);
@@ -103,7 +103,7 @@ app.post("/api/submit_stats", function(req, res) {
                     case "Muscular":
                         stats.weight = req.body.result1;
                         stats.reps = req.body.result2;
-                        stats.pr = req.body.result1;
+                        stats.pr = Math.max(req.body.result1, data[0].pr);
                         console.log("You've submitted Muscular");
                         break;
                     default:
@@ -111,7 +111,9 @@ app.post("/api/submit_stats", function(req, res) {
                 }
                 //udate the stats in mysql
                 connection.query(
-                    "UPDATE stats SET"
+                    "UPDATE stats SET ? WHERE name = ?", [stats, stats.name], function(err, data) {
+                        console.log("Stats updated");
+                    }
                 )
             }
         }
